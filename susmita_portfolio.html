@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Susmita Dutta — Copy & Content Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --rust: #c15a3b;
+    --sage: #5a7360;
+    --muted: #7a7068;
+    --light: #faf7f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13,13,13,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+    transition: background 0.25s, transform 0.2s;
+    width: fit-content;
+  }
+  .hero-cta:hover { background: var(--rust); transform: translateY(-2px); }
+  .hero-cta .arrow { transition: transform 0.2s; }
+  .hero-cta:hover .arrow { transform: translateX(5px); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(10rem, 18vw, 18rem);
+    font-weight: 900;
+    color: rgba(13,13,13,0.04);
+    line-height: 1;
+    user-select: none;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+  }
+
+  .hero-card {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 3rem;
+    max-width: 380px;
+    width: 90%;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s 0.8s forwards;
+  }
+
+  .hero-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .hero-stat h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat p {
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.55);
+    margin-top: 0.3rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 5rem; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--light);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a3530;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong { color: var(--ink); font-weight: 500; }
+
+  .about-skills-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .pill {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(13,13,13,0.18);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .pill:hover { background: var(--ink); color: var(--cream); }
+
+  .about-quick {
+    background: var(--cream);
+    border: 1px solid rgba(13,13,13,0.1);
+    padding: 2.5rem;
+  }
+
+  .about-quick h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+  }
+
+  .quick-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(13,13,13,0.07);
+    gap: 1rem;
+  }
+  .quick-item:last-child { border-bottom: none; }
+  .quick-item span:first-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+  .quick-item span:last-child {
+    font-size: 0.88rem;
+    text-align: right;
+    color: var(--ink);
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--cream); }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .exp-card {
+    border: 1px solid rgba(13,13,13,0.12);
+    padding: 2.5rem;
+    position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+    background: var(--light);
+  }
+  .exp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,13,13,0.1); }
+
+  .exp-card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+  }
+  .accent-gold { background: var(--gold); }
+  .accent-rust { background: var(--rust); }
+  .accent-sage { background: var(--sage); }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .exp-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--rust);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .exp-bullets li {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #3a3530;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ── COPY SAMPLES ── */
+  #samples {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  #samples .section-title { color: var(--cream); }
+  #samples .section-label { color: var(--gold); }
+  #samples .divider { background: var(--rust); }
+
+  .samples-intro {
+    font-size: 1rem;
+    color: rgba(245,240,232,0.6);
+    max-width: 600px;
+    margin-bottom: 3.5rem;
+    line-height: 1.7;
+  }
+
+  .samples-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .sample-card {
+    border: 1px solid rgba(245,240,232,0.12);
+    padding: 2rem;
+    transition: border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .sample-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .sample-platform {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .sample-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    color: var(--cream);
+  }
+
+  .sample-body {
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 1.2rem;
+  }
+
+  .sample-cta-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--rust);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .sample-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(193,90,59,0.2);
+    color: var(--rust);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--light); }
+
+  .projects-list { display: flex; flex-direction: column; gap: 1px; background: rgba(13,13,13,0.1); }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem 2.5rem;
+    background: var(--light);
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .project-row:hover { background: var(--cream); }
+
+  .project-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: rgba(13,13,13,0.1);
+    line-height: 1;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .project-badge {
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(13,13,13,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--cream); }
+
+  .edu-timeline { position: relative; padding-left: 2rem; }
+  .edu-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: rgba(13,13,13,0.12);
+  }
+
+  .edu-item {
+    position: relative;
+    padding: 0 0 3.5rem 2.5rem;
+  }
+  .edu-item:last-child { padding-bottom: 0; }
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 9px; height: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translateX(50%);
+  }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-school {
+    font-size: 0.88rem;
+    color: var(--rust);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-grade {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--light);
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .contact-text p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(13,13,13,0.1);
+    transition: all 0.2s;
+    background: var(--cream);
+  }
+  .contact-link:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+  .contact-link-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    width: 60px;
+  }
+  .contact-link-val {
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .contact-cta-box {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .contact-cta-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .contact-cta-box h3 em { font-style: italic; color: var(--gold); }
+  .contact-cta-box p {
+    font-size: 0.88rem;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.85rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--rust); color: var(--cream); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.35);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5rem 2rem 3rem; }
+    .hero-right { display: none; }
+    section { padding: 5rem 2rem; }
+    #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .samples-grid { grid-template-columns: 1fr; }
+    .project-row { grid-template-columns: 50px 1fr; }
+    .project-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Susmita Dutta · Portfolio</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#samples">Copy Samples</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Copy & Content · Digital Marketing · Finance</p>
+    <h1 class="hero-name">Susmita<br><em>Dutta</em></h1>
+    <p class="hero-desc">MBA graduate who turns data insights and consumer research into persuasive copy that converts. I write for growth — bridging analytics with storytelling across paid, organic, and performance channels.</p>
+    <a href="#contact" class="hero-cta">Let's Work Together <span class="arrow">→</span></a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">SD</div>
+    <div class="hero-card">
+      <p class="hero-card-label">At a glance</p>
+      <div class="hero-stat-grid">
+        <div class="hero-stat">
+          <h3>8.55</h3>
+          <p>MBA CGPA (3 semesters)</p>
+        </div>
+        <div class="hero-stat">
+          <h3>101</h3>
+          <p>Survey respondents analysed</p>
+        </div>
+        <div class="hero-stat">
+          <h3>2</h3>
+          <p>Research internships</p>
+        </div>
+        <div class="hero-stat">
+          <h3>∞</h3>
+          <p>Curiosity about consumer behaviour</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Data-Driven. <em>Word-Led.</em></h2>
+    <div class="divider"></div>
+    <p>I'm an MBA graduate specialising in <strong>Finance and Marketing</strong> with a genuine passion for how words move people — and how data tells you which words to use. At NEEPCO I learned to decode financial behaviour; at Datawise I translated raw survey data into actionable narratives. Both taught me the same thing: <strong>great copy starts with great research.</strong></p>
+    <p>I understand what makes audiences stop scrolling — urgency, specificity, relevance. Whether it's a Meta ad headline, a landing page hero, or a TikTok hook, I bring analytical rigour and creative instinct to every brief.</p>
+    <p>I'm ready to learn fast, iterate on data, and write copy that earns its click.</p>
+
+    <p class="about-skills-title">Core Competencies</p>
+    <div class="skill-pills">
+      <span class="pill">Persuasive Copywriting</span>
+      <span class="pill">Consumer Behaviour Research</span>
+      <span class="pill">Market Analysis</span>
+      <span class="pill">Report Writing</span>
+      <span class="pill">MS Excel</span>
+      <span class="pill">Google Docs</span>
+      <span class="pill">Canva</span>
+      <span class="pill">Basic AI Tools</span>
+      <span class="pill">Presentation Skills</span>
+      <span class="pill">Data-Driven Storytelling</span>
+      <span class="pill">Social Media Awareness</span>
+      <span class="pill">SEO Basics</span>
+    </div>
+  </div>
+
+  <div class="about-quick reveal">
+    <div class="about-quick" style="padding:2.5rem;">
+      <h4>Quick Profile</h4>
+      <div class="quick-item">
+        <span>Education</span>
+        <span>MBA, Finance & Marketing<br>Royal Global University</span>
+      </div>
+      <div class="quick-item">
+        <span>Location</span>
+        <span>Guwahati / Shillong, Assam</span>
+      </div>
+      <div class="quick-item">
+        <span>Experience</span>
+        <span>Finance Intern · Data Analyst Intern (NEEPCO + Datawise)</span>
+      </div>
+      <div class="quick-item">
+        <span>Applying for</span>
+        <span>Copy & Content Intern</span>
+      </div>
+      <div class="quick-item">
+        <span>Email</span>
+        <span>susmitadutta87944@gmail.com</span>
+      </div>
+      <div class="quick-item">
+        <span>Phone</span>
+        <span>+91 87948 36082</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label reveal">Experience</p>
+  <h2 class="section-title reveal">Where I've <em>Sharpened</em> My Edge</h2>
+  <div class="divider reveal"></div>
+
+  <div class="exp-grid">
+
+    <div class="exp-card reveal">
+      <div class="exp-card-accent accent-gold"></div>
+      <p class="exp-date">Jul 2025 — Sep 2025</p>
+      <h3 class="exp-role">Finance Intern</h3>
+      <p class="exp-org">NEEPCO · Shillong</p>
+      <ul class="exp-bullets">
+        <li>Conducted financial and market analysis to support senior management decision-making — sharpening my ability to identify what numbers mean for real audiences.</li>
+        <li>Analysed Provident Fund investment patterns; distilled complex data into clear, executive-ready reports and presentations.</li>
+        <li>Evaluated investment strategies, building a strong foundation in how financial messaging influences stakeholder behaviour.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-card-accent accent-rust"></div>
+      <p class="exp-date">Jul 2025 — Sep 2025</p>
+      <h3 class="exp-role">Data Analysis Intern</h3>
+      <p class="exp-org">Datawise · Shillong</p>
+      <ul class="exp-bullets">
+        <li>Analysed customer data to identify behavioural trends — exactly the consumer psychology lens that performance copywriting demands.</li>
+        <li>Conducted surveys and primary data collection, developing an instinct for what audiences respond to and why.</li>
+        <li>Improved reporting accuracy through collaborative iteration — a workflow directly transferable to copy testing and campaign analysis.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-card-accent accent-sage"></div>
+      <p class="exp-date">Sep 2025 — Jun 2026</p>
+      <h3 class="exp-role">Reporting Team Member</h3>
+      <p class="exp-org">Royal School of Business · Royal Global University</p>
+      <ul class="exp-bullets">
+        <li>Prepared detailed written reports on departmental activities, events, and seminars — practising clarity, structure, and audience-appropriate tone at scale.</li>
+        <li>Collaborated with team members to ensure accurate, high-quality documentation under tight deadlines.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-card-accent accent-gold"></div>
+      <p class="exp-date">Apr 2023 — May 2024</p>
+      <h3 class="exp-role">Ranger Team Member</h3>
+      <p class="exp-org">Volunteer · Shillong</p>
+      <ul class="exp-bullets">
+        <li>Participated in community outreach promoting environmental awareness — crafting messaging that resonated with diverse local audiences.</li>
+        <li>Assisted in organising awareness campaigns and public events, gaining first-hand experience in campaign execution and community engagement.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- COPY SAMPLES -->
+<section id="samples">
+  <p class="section-label reveal">Copy Samples</p>
+  <h2 class="section-title reveal">Words That <em>Work</em></h2>
+  <div class="divider" style="background:var(--rust);" ></div>
+  <p class="samples-intro reveal">Sample ad copy and messaging I've crafted — demonstrating awareness of hook structures, value propositions, and platform-native tone across Meta, Google, and short-form video.</p>
+
+  <div class="samples-grid">
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">Meta · Instagram Ad</p>
+      <span class="sample-tag">Finance / Fintech</span>
+      <h3 class="sample-headline">You track every rupee. Why not your growth?</h3>
+      <p class="sample-body">Most investors wait. Smart ones study. Our app gives you Provident Fund insights and investment signals built from real data — not guesses. Join 50,000 users growing confidently.</p>
+      <p class="sample-cta-text">→ Start Free Today</p>
+    </div>
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">Google Search · PPC</p>
+      <span class="sample-tag">Education</span>
+      <h3 class="sample-headline">MBA Results, Not Just a Degree</h3>
+      <p class="sample-body">Finance + Marketing specialisation. Industry internships included. Placement support. Royal Global University — where ambition meets academic rigour. Apply before seats fill.</p>
+      <p class="sample-cta-text">→ Download Brochure</p>
+    </div>
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">TikTok / Reels · Hook</p>
+      <span class="sample-tag">Sustainability · Retail</span>
+      <h3 class="sample-headline">90% of small shops in Guwahati know about this — do you?</h3>
+      <p class="sample-body">Environmental sustainability isn't just a big-brand thing. Local retailers who adopted even 2 green practices saw customer loyalty jump. Here's what the data actually says…</p>
+      <p class="sample-cta-text">→ Watch to find out</p>
+    </div>
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">Landing Page · Hero</p>
+      <span class="sample-tag">B2B SaaS</span>
+      <h3 class="sample-headline">Your supply chain is digital. Your decisions should be too.</h3>
+      <p class="sample-body">Companies using digitised supply chains report up to 49% better firm performance. Our platform bridges the data gap — turning raw logistics into competitive advantage.</p>
+      <p class="sample-cta-text">→ Book a Demo</p>
+    </div>
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">Email · Subject Line Test</p>
+      <span class="sample-tag">Consumer Goods</span>
+      <h3 class="sample-headline">We looked at 101 buyers. Here's what they actually want.</h3>
+      <p class="sample-body">Forget what you think your customers care about. Our survey data from real North-East India consumers reveals the 3 factors that drive repeat purchase. Open rate experiment: curiosity vs. urgency framing.</p>
+      <p class="sample-cta-text">→ See the Data</p>
+    </div>
+
+    <div class="sample-card reveal">
+      <p class="sample-platform">YouTube · Pre-roll</p>
+      <span class="sample-tag">EdTech</span>
+      <h3 class="sample-headline">Skip this if you already know what r = 0.702 means for your career.</h3>
+      <p class="sample-body">If not — we built the MBA experience that teaches you to speak data fluently. Real internships, real research, real outcomes. Don't skip this.</p>
+      <p class="sample-cta-text">→ Explore Programs</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Projects & Research</p>
+  <h2 class="section-title reveal">Where <em>Analysis</em> Meets Action</h2>
+  <div class="divider reveal"></div>
+
+  <div class="projects-list reveal">
+    <div class="project-row">
+      <div class="project-num">01</div>
+      <div>
+        <h3 class="project-title">Environmental Sustainability in Small Retail — Guwahati</h3>
+        <p class="project-desc">Primary research across 101 respondents. Spearman's Rank Correlation (ρ = 0.673). Identified that high initial investment (Mean 3.42) is the #1 barrier — and all five business outcome dimensions scored above Mean 4.0. Dissertation.</p>
+      </div>
+      <span class="project-badge">Research · Data · Dissertation</span>
+    </div>
+    <div class="project-row">
+      <div class="project-num">02</div>
+      <div>
+        <h3 class="project-title">Impact of Supply Chain Digitisation on Firm Performance — India</h3>
+        <p class="project-desc">100-respondent study. Pearson r = 0.702, R² = 0.493. Cronbach's Alpha validation. One-Way ANOVA. Demonstrated strong positive link between digitisation and firm performance. Supervised by Dr. Suman Agarwal.</p>
+      </div>
+      <span class="project-badge">Statistics · B2B · Dissertation</span>
+    </div>
+    <div class="project-row">
+      <div class="project-num">03</div>
+      <div>
+        <h3 class="project-title">NEEPCO Provident Fund Trust — Case Study</h3>
+        <p class="project-desc">Deep-dive financial analysis of PF investment patterns, management practices, and strategic recommendations. Translated complex fund data into executive-ready presentation.</p>
+      </div>
+      <span class="project-badge">Finance · Reporting</span>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--cream); display:block;">
+  <p class="section-label reveal">Education</p>
+  <h2 class="section-title reveal">Built on <em>Rigour</em></h2>
+  <div class="divider reveal"></div>
+
+  <div class="edu-timeline reveal" style="max-width:700px;">
+    <div class="edu-item">
+      <p class="edu-year">2024 — 2026</p>
+      <h3 class="edu-degree">MBA — Finance & Marketing</h3>
+      <p class="edu-school">The Assam Royal Global University, Guwahati</p>
+      <p class="edu-grade">CGPA: 8.55 (Till 3rd Semester)</p>
+    </div>
+    <div class="edu-item">
+      <p class="edu-year">2020 — 2023</p>
+      <h3 class="edu-degree">Bachelor of Commerce (B.Com)</h3>
+      <p class="edu-school">St. Anthony's College, Shillong — Northeastern Hill University</p>
+      <p class="edu-grade">62.88%</p>
+    </div>
+    <div class="edu-item">
+      <p class="edu-year">2018 — 2020</p>
+      <h3 class="edu-degree">Higher Secondary Education</h3>
+      <p class="edu-school">St. Mary's Higher Secondary School, Shillong</p>
+      <p class="edu-grade">72.66%</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-text reveal">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's Make <em>Great Copy</em> Together</h2>
+    <div class="divider"></div>
+    <p>I'm actively looking for opportunities to apply my research background, consumer behaviour insights, and writing skills to performance marketing. If you think I'd be a good fit for your team, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:susmitadutta87944@gmail.com" class="contact-link">
+        <span class="contact-link-icon">Email</span>
+        <span class="contact-link-val">susmitadutta87944@gmail.com</span>
+      </a>
+      <a href="tel:+918794836082" class="contact-link">
+        <span class="contact-link-icon">Phone</span>
+        <span class="contact-link-val">+91 87948 36082</span>
+      </a>
+      <a href="https://linkedin.com/in/susmita-dutta" target="_blank" class="contact-link">
+        <span class="contact-link-icon">LinkedIn</span>
+        <span class="contact-link-val">linkedin.com/in/susmita-dutta</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-cta-box reveal">
+    <h3>Ready to <em>convert</em> your audience?</h3>
+    <p>MBA-trained analytical thinking. Performance marketing curiosity. Copy built on data. Let's talk about what I can bring to your growth team.</p>
+    <a href="mailto:susmitadutta87944@gmail.com" class="btn-primary">Email Me Directly →</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Susmita Dutta · Copy & Content Portfolio · Built with intention.
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
